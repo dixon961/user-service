@@ -9,6 +9,6 @@
 *.rar
 
 #Gradle
-.gradle
+*.gradle
 /build/
 !gradle-wrapper.jar
