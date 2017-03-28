@@ -12,3 +12,8 @@
 *.gradle
 /build/
 !gradle-wrapper.jar
+
+#idea
+.idea/*
+*.ipr
+*.iws
