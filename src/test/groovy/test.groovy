@@ -5,6 +5,7 @@ import spock.lang.*
 import java.time.LocalDate
 import java.time.Month
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 
 class Test extends Specification {
 
@@ -29,7 +30,7 @@ class Test extends Specification {
     }
 
     @Unroll
-    def "create employee with wrong date"(){
+    def "create employee with wrong date format"(){
         given:
         def employee = null
 
@@ -42,6 +43,21 @@ class Test extends Specification {
         where:
         date << ["21.02.1996",  "21 02 1996",  "21 February 1996",  "1996 02 21"]
 
+    }
+
+    @Unroll
+    def "create employee with wrong date"(){
+        given:
+        def employee = null
+
+        when:
+        employee = new Employee("Alex", "Markov", "a@b.com", "123", date)
+
+        then:
+        thrown(DateTimeParseException)
+
+        where:
+        date << ["33-02-1996",  "21-13-1996"]
     }
 
 
@@ -66,5 +82,6 @@ class Test extends Specification {
         then:
         thrown(IllegalArgumentException)
     }
+
 
 }

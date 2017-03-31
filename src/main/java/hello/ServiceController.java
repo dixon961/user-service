@@ -44,7 +44,9 @@ public class ServiceController {
     public Message deleteEmployee(
             @RequestParam(value="email", required=true) String email
     ) {
-        eSet.deleteEmployee(email);
-        return new Message("Employee deleted");
+        if (eSet.deleteEmployee(email) != null)
+            return new Message("Employee deleted");
+        else
+            return new Message("No such employee");
     }
 }

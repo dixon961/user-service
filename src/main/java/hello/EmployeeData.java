@@ -6,7 +6,7 @@ public interface EmployeeData {
 
     void addEmployee(Employee e);
 
-    void deleteEmployee(String email);
+    Employee deleteEmployee(String email);
 
     int size();
 }

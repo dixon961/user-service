@@ -3,6 +3,7 @@ package hello;
 import java.security.MessageDigest;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 public class Employee implements Comparable<Employee>{
@@ -14,7 +15,7 @@ public class Employee implements Comparable<Employee>{
 
 
 
-    public Employee(String name, String lastName, String email, String password, String birthDate) throws IllegalArgumentException{
+    public Employee(String name, String lastName, String email, String password, String birthDate) throws IllegalArgumentException, DateTimeParseException{
         this.name = name;
         this.lastName = lastName;
         this.email = email;
