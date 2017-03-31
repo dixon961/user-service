@@ -18,7 +18,10 @@ public class Employee implements Comparable<Employee>{
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        if (!birthDate.matches("\\d\\d-\\d\\d-\\d\\d\\d\\d"))
+        if (!birthDate.matches("\\d\\d-\\d\\d-\\d\\d\\d\\d") ||
+                !name.matches("[a-zA-Z]+") ||
+                !lastName.matches("[a-zA-Z]+") ||
+                !email.matches(".+@.+"))
             throw new IllegalArgumentException("Wrong date");
         this.birthDate = LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         try {
@@ -57,7 +60,5 @@ public class Employee implements Comparable<Employee>{
             return 1;
         return 0;
     }
-
-
 
 }

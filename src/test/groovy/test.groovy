@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter
 
 class Test extends Specification {
 
+    @Unroll
     def "create correct Employee"(){
         given:
         def employee = null
@@ -42,4 +43,28 @@ class Test extends Specification {
         date << ["21.02.1996",  "21 02 1996",  "21 February 1996",  "1996 02 21"]
 
     }
+
+
+    def "create employee with wrong name"(){
+        given:
+        def employee = null;
+
+        when:
+        employee = new Employee("R2", "D2", "r2d2@sw.com", "222", "02-02-1993")
+
+        then:
+        thrown(IllegalArgumentException)
+    }
+
+    def "create employee with wrong email"(){
+        given:
+        def employee = null;
+
+        when:
+        employee = new Employee("Adam", "Hell", "ah.com", "123", "02-02-1993")
+
+        then:
+        thrown(IllegalArgumentException)
+    }
+
 }
