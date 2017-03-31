@@ -17,8 +17,17 @@ public class ServiceController {
             @RequestParam(value="password", required=true) String password,
             @RequestParam(value="date", required=true) String date
             ) {
-        eSet.addEmployee(new Employee(name, lastName, email, password, date));
+        Employee e;
+        try{
+            e = new Employee(name, lastName, email, password, date);
+
+        }
+        catch (IllegalArgumentException ex){
+            return new Message("Wrong input");
+        }
+        eSet.addEmployee(e);
         return new Message("Employee added");
+
     }
 
     @RequestMapping("/employee/get")

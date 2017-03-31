@@ -2,7 +2,7 @@ package hello;
 
 import java.util.HashMap;
 
-public class EmployeeSet {
+public class EmployeeSet implements EmployeeData{
     private HashMap<String, Employee> employees;
 
     public EmployeeSet(){
@@ -19,5 +19,9 @@ public class EmployeeSet {
 
     public void deleteEmployee(String email){
         employees.remove(email);
+    }
+
+    public int size(){
+        return employees.size();
     }
 }

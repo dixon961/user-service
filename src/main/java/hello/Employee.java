@@ -1,24 +1,33 @@
 package hello;
 
-import java.util.Date;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import java.security.MessageDigest;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 
 public class Employee implements Comparable<Employee>{
     private String name;
     private String lastName;
     private String email;
-    private String password;
-    private String birthDate;
-    //private static final BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();;
+    private byte[] password;
+    private LocalDate birthDate;
 
-    public Employee(String name, String lastName, String email, String password, String birthDate){
+
+
+    public Employee(String name, String lastName, String email, String password, String birthDate) throws IllegalArgumentException{
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        //this.password = bcrypt.encode(password);
-        this.password = password;
-        this.birthDate = birthDate;
+        if (!birthDate.matches("\\d\\d-\\d\\d-\\d\\d\\d\\d"))
+            throw new IllegalArgumentException("Wrong date");
+        this.birthDate = LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        this.birthDate = this.birthDate.minusMonths(1);
+        try {
+            this.password = MessageDigest.getInstance("MD5").digest(password.getBytes("UTF-8"));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public String getName() {
@@ -33,11 +42,11 @@ public class Employee implements Comparable<Employee>{
         return email;
     }
 
-    public String getPassword() {
+    public byte[] getPassword() {
         return password;
     }
 
-    public String getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
@@ -49,4 +58,7 @@ public class Employee implements Comparable<Employee>{
             return 1;
         return 0;
     }
+
+
+
 }
