@@ -21,7 +21,6 @@ public class Employee implements Comparable<Employee>{
         if (!birthDate.matches("\\d\\d-\\d\\d-\\d\\d\\d\\d"))
             throw new IllegalArgumentException("Wrong date");
         this.birthDate = LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        this.birthDate = this.birthDate.minusMonths(1);
         try {
             this.password = MessageDigest.getInstance("MD5").digest(password.getBytes("UTF-8"));
         }
