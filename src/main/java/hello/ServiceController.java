@@ -4,10 +4,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 public class ServiceController {
 
-    private  EmployeeSet eSet = new EmployeeSet();
+    private EmployeeData employeeData = new MongoData();
 
     @RequestMapping("/employee/add")
     public Message addEmployee(
@@ -25,7 +26,7 @@ public class ServiceController {
         catch (IllegalArgumentException ex){
             return new Message("Wrong input");
         }
-        eSet.addEmployee(e);
+        employeeData.addEmployee(e);
         return new Message("Employee added");
 
     }
@@ -34,8 +35,8 @@ public class ServiceController {
     public Employee getEmployee(
             @RequestParam(value="email", required=true) String email
     ) {
-        if (eSet.getEmployee(email) != null)
-            return eSet.getEmployee(email);
+        if (employeeData.getEmployee(email) != null)
+            return employeeData.getEmployee(email);
         else
             return new Employee("empty", "empty", "empty", "empty", "empty");
     }
@@ -44,7 +45,7 @@ public class ServiceController {
     public Message deleteEmployee(
             @RequestParam(value="email", required=true) String email
     ) {
-        if (eSet.deleteEmployee(email) != null)
+        if (employeeData.deleteEmployee(email) != null)
             return new Message("Employee deleted");
         else
             return new Message("No such employee");
