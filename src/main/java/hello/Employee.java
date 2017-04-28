@@ -25,13 +25,14 @@ public class Employee implements Comparable<Employee>{
     public Employee(String name, String lastName, String email, String password, String birthDate)
             throws IllegalArgumentException, DateTimeParseException{
 
-        if (
-                !birthDate.matches("\\d\\d-\\d\\d-\\d\\d\\d\\d") ||
-                !name.matches("[a-zA-Z]+") ||
-                !lastName.matches("[a-zA-Z]+") ||
-                !email.matches(".+@.+")
-                )
-            throw new IllegalArgumentException("Wrong date!" + birthDate);
+        if (!birthDate.matches("\\d\\d-\\d\\d-\\d\\d\\d\\d"))
+            throw new IllegalArgumentException("Wrong date! " + birthDate);
+        if (!name.matches("[a-zA-Z]+"))
+            throw new IllegalArgumentException("Wrong first name! " + name);
+        if (!lastName.matches("[a-zA-Z]+"))
+            throw new IllegalArgumentException("Wrong lastname! " + lastName);
+        if (!email.matches(".+@.+"))
+            throw new IllegalArgumentException("Wrong e-mail! " + email);
 
         this.name = name;
         this.lastName = lastName;
