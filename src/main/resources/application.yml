@@ -1,1 +1,7 @@
 error_msg: Wrong input
+---
+spring:
+  profiles: mongo
+---
+spring:
+  profiles: inmemory
