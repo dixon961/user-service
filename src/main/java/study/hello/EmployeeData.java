@@ -1,4 +1,4 @@
-package hello;
+package study.hello;
 
 
 public interface EmployeeData {

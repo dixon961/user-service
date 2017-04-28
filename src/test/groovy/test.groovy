@@ -1,10 +1,8 @@
-import hello.Employee
-import hello.EmployeeSet
+import study.hello.Employee
 import spock.lang.*
 
 import java.time.LocalDate
 import java.time.Month
-import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
 class Test extends Specification {
