@@ -17,8 +17,8 @@ public class EmployeeSet implements EmployeeData{
         employees.put(e.getEmail(), e);
     }
 
-    public void deleteEmployee(String email){
-        employees.remove(email);
+    public Employee deleteEmployee(String email){
+        return employees.remove(email);
     }
 
     public int size(){
