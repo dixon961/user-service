@@ -1,6 +1,7 @@
 package study;
 
 import com.mongodb.MongoClient;
+import groovy.util.logging.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -22,10 +23,15 @@ public class UserServiceConfiguration {
 
     @Bean
     @Profile("mongo")
-    public MongoData mongoData(){ return new MongoData(); }
+    public MongoData mongoData(){
+        System.out.println("mongo");
+        return new MongoData();
+    }
 
     @Bean
     @Profile("default")
-    public EmployeeSet employeeSet() {return new EmployeeSet();}
+    public EmployeeSet employeeSet() {
+        System.out.println("default");
+        return new EmployeeSet();}
 
 }
