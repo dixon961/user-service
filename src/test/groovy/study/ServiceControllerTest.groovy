@@ -16,12 +16,6 @@ import study.hello.ServiceController
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.removeHeaders
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.removeHeaders
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import static org.springframework.restdocs.payload.PayloadDocumentation.*
 
@@ -29,7 +23,9 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*
  * @author alexey.markov@bostongene.com
  */
 @WebMvcTest(ServiceController)
-@AutoConfigureRestDocs("build/docs")
+@AutoConfigureRestDocs("build/generated-snippets")
+//TODO adoc -> pdf/html
+//TODO @AutoConfigureRestDocs("build/docs") библиотека, с помощью которой можно не писать путь
 class ServiceControllerTest extends Specification {
 
     @Autowired
@@ -41,8 +37,8 @@ class ServiceControllerTest extends Specification {
     def "check add employee"(){
         expect:
         this.mockMvc.perform(get(addRequest()))
-            .andExpect(status().isOk())
-            .andDo(document("add-employee"))
+                .andExpect(status().isOk())
+                .andDo(document("add-employee"))
     }
 
     def "check get employee"(){
@@ -71,13 +67,21 @@ class ServiceControllerTest extends Specification {
         "/employee/delete?email=smth@gmail.com"
     }
 
-    static restDocument(String methodName, Snippet... snippets)
-    {
-        document(methodName,
-                preprocessRequest(prettyPrint(), removeHeaders("Host")),
-                preprocessResponse(prettyPrint(), removeHeaders("X-Application-Context",
-                        "X-Content-Type-Options", "X-XSS-Protection", "Cache-Control",
-                        "Pragma", "Expires", "X-Frame-Options")),
-                snippets)
-    }
+//    static restDocument(String methodName, Snippet... snippets)
+//    {
+//        document(methodName,
+//                preprocessRequest(prettyPrint(), removeHeaders("Host")),
+//                preprocessResponse(prettyPrint(), removeHeaders("X-Application-Context",
+//                        "X-Content-Type-Options", "X-XSS-Protection", "Cache-Control",
+//                        "Pragma", "Expires", "X-Frame-Options")),
+//                snippets)
+//    }static restDocument(String methodName, Snippet... snippets)
+//    {
+//        document(methodName,
+//                preprocessRequest(prettyPrint(), removeHeaders("Host")),
+//                preprocessResponse(prettyPrint(), removeHeaders("X-Application-Context",
+//                        "X-Content-Type-Options", "X-XSS-Protection", "Cache-Control",
+//                        "Pragma", "Expires", "X-Frame-Options")),
+//                snippets)
+//    }
 }

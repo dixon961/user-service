@@ -7,10 +7,15 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.asciidoctor.convert" version "1.5.3"
+}
+
 apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
+
 
 dependencyManagement {
     imports {
@@ -20,13 +25,10 @@ dependencyManagement {
 
 group = "study"
 
-jar {
-    baseName = 'gs-rest-service'
-    version =  '0.1.0'
-}
 
 repositories {
     mavenCentral()
+    maven { url 'https://repo.spring.io/libs-snapshot' }
 }
 
 sourceCompatibility = 1.8
@@ -34,7 +36,15 @@ targetCompatibility = 1.8
 
 ext["spock.version"] = "1.1-groovy-2.4-rc-4"
 
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+ext['spring-restdocs.version'] = '1.2.0.RELEASE'
+
 dependencies {
+    asciidoctor "org.springframework.restdocs:spring-restdocs-asciidoctor:1.2.0.RELEASE"
+
     compile "org.codehaus.groovy:groovy-all"
     compile "org.projectlombok:lombok:1.16.10"
     compile "org.springframework.boot:spring-boot-starter"
@@ -42,9 +52,27 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-data-mongodb"
     compile "org.springframework.boot:spring-boot-starter-web"
 
-
     testCompile "org.spockframework:spock-spring"
     testCompile "org.springframework.restdocs:spring-restdocs-mockmvc"
     testCompile "org.springframework.boot:spring-boot-starter-test"
+}
+
+test {
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+jar {
+    dependsOn asciidoctor
+    from ("${asciidoctor.outputDir}/html5") {
+        into 'static/docs'
+    }
+
+    baseName = 'gs-rest-service'
+    version =  '0.1.0'
 }
 
