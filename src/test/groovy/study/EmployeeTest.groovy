@@ -1,17 +1,13 @@
-package study
-
-import spock.lang.Specification
-import spock.lang.Unroll
 import study.hello.Employee
+import spock.lang.*
 
 import java.time.LocalDate
 import java.time.Month
 import java.time.format.DateTimeParseException
 
-/**
- * @author alexey.markov@bostongene.com
- */
 class EmployeeTest extends Specification {
+
+
     @Unroll
     def "create correct Employee"(){
         given:
@@ -85,4 +81,6 @@ class EmployeeTest extends Specification {
         then:
         thrown(IllegalArgumentException)
     }
+
+
 }
