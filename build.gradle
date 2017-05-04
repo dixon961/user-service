@@ -16,7 +16,6 @@ apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 
-
 dependencyManagement {
     imports {
         mavenBom "org.springframework.boot:spring-boot-dependencies:1.5.3.RELEASE"
@@ -24,7 +23,6 @@ dependencyManagement {
 }
 
 group = "study"
-
 
 repositories {
     mavenCentral()
