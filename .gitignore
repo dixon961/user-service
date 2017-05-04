@@ -9,7 +9,6 @@
 *.rar
 
 #Gradle
-*.gradle
 !build.gradle
 /build/
 !gradle-wrapper.jar
